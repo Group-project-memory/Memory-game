@@ -7,15 +7,19 @@
 
 <script>
 export default {
-    data() {
-        return {
-            flip: 0
-        }
-    },
-    props: ["card"],
+    // data() {
+    //     return {
+    //         flip: 0
+    //     }
+    // },
+    props: ["card", "flip"],
     methods: {
         flipCard(){
-            this.flip = this.flip? 0:1
+          if (this.flip == 0) {
+            this.flip = 1
+
+            this.$emit("flipCard", this.card)
+          }
         }
     },
     computed: {
