@@ -13,8 +13,9 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  height: 100%;
+  background-image: url("https://cdna.artstation.com/p/assets/images/images/006/052/170/large/woo-chul-lee-11.jpg?1495674479")
 }
 
 #nav {
