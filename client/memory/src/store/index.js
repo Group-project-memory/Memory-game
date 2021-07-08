@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     player1: { nama: '', score: 0 },
-    player2: { nama: '', score: 6 },
+    player2: { nama: '', score: 0 },
     cardList: [
       {
         num: 1,
