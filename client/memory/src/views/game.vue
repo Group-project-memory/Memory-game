@@ -15,16 +15,19 @@
             :key="card.id" 
             :card="card" 
             :flip="flip(card)" 
-            @flipCard="flipCard"/>
+            @flipCard="flipCardClick"/>
         </div>
     </div>
 </template>
 
 <script>
+import {io} from 'socket.io-client'
+const socket = io('http://localhost:3000')
+
 import Card from '../components/Card.vue'
 // import Sidebar from '../components/Sidebar.vue'
 import Scoreboard from '../components/Scoreboard.vue'
-import lodash from 'lodash'
+
 export default {
     components: {
         Card, Scoreboard
@@ -37,7 +40,7 @@ export default {
     },
     computed: {
         deck () {
-            return lodash.shuffle(this.$store.state.cardList)
+            return this.$store.state.cardList
         },
         player1 () {
             return this.$store.state.player1
@@ -48,7 +51,12 @@ export default {
     },
     methods: {
         flip(item) {
-            return item.discovered || item === this.element1 || item === this.element2
+            return  item.discovered || item === this.element1 || item === this.element2 || item.flip
+        },
+        flipCardClick(item) {
+            item.flip = true
+            socket.emit('flipCard', this.$store.state.cardList)
+            this.flipCard(item)
         },
         flipCard(item) {
            if (!this.element1) {
@@ -61,7 +69,10 @@ export default {
                        this.element2.discovered = true;
                        
                        this.$store.dispatch('addScore1')
-                   } 
+                   } else {
+                       this.element1.flip = false;
+                       this.element2.flip = false;
+                   }
                } else {
                    this.element1 = item,
                    this.element2 = null
@@ -70,6 +81,13 @@ export default {
        }
     },
     created() {
+    },
+    mounted () {
+        socket.on('s_flipCard', payload => {
+            console.log('CLIENT RECEIVE', payload)
+            this.$store.commit('SET_CARD', null)
+            this.$store.commit('SET_CARD', payload)
+        })
     }
 }
 </script>
