@@ -109,6 +109,7 @@ io.on('connect', (socket) => {
     io.emit('idSocket', socket.id)
 
     socket.on('join_game', nama => {
+        console.log(nama)
         if (playerCount > 2) {
             io.emit('respon_join', 'Player Full')
         } else {

@@ -11,10 +11,6 @@
         <button type="submit" class="btn btn-primary">Start Journey</button>
       </form>
     </div>
-<!-- 
-
-    <button v-if="!isWaiting" @click="startGame">START GAME</button>
-    <h1 v-if="isWaiting">Waiting Another Player</h1> -->
   </div>
 </template>
 
@@ -34,7 +30,7 @@ export default {
   },
   methods: {
     startGame () {
-      socket.emit('join_game', 'JOIN');
+      socket.emit('join_game', this.nama);
 
     }
   },
@@ -48,11 +44,11 @@ export default {
       this.idSocket = payload
     })
 
-    socket.on('respon_join', payload => {
-      if(payload === 'Player Full') {
+    socket.on('respon_join', (playerCount, nama, p1name) => {
+      if(playerCount === 'Player Full') {
         console.log('Silahkan Coba Lagi Setelah Beberapa Saat')
       } else {
-        if (payload == 1) {
+        if (playerCount == 1) {
           console.log('Waiting Another Player')
           this.$store.commit('SET_ACTIVE_PLAYER', 'player1')
           this.$store.commit('SET_P1_NAME', this.nama)
@@ -61,7 +57,9 @@ export default {
           this.isWaiting = true;
         } else {
           console.log('Game Started')
-
+          this.$store.commit('SET_P1_NAME', p1name )
+          this.$store.commit('SET_P2_NAME', nama )
+          socket.emit('getCard')
           if (this.$store.state.activeAs === '') {
             this.$store.commit('SET_ACTIVE_PLAYER', 'player2')
             this.$store.commit('SET_P2_NAME', this.nama)
@@ -77,6 +75,7 @@ export default {
     })
 
     socket.on('s_getCard', payload => {
+      console.log('setting cards')
       this.$store.commit('SET_CARD', payload)
     })
 
