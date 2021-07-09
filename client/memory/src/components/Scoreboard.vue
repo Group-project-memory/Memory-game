@@ -2,15 +2,25 @@
   <div class="w-25 scoreboard" >
     <img src="../assets/parchment.png" alt="parchment" style="width:100%;">
     <div class="centered">
-        <div class="font-weight-bold h1">{{player.nama}}</div><br>
+        <div class="font-weight-bold h1">Lord {{player.nama}}</div><br>
         <div class="font-weight-bold h1">{{player.score}}</div>
+        <div v-if="isShow" class="font-weight-bold h1">YOUR TURN</div><br>
     </div>
  </div>
 </template>
 
 <script>
 export default {
-    props: ["player"]
+    props: ["player", "id"],
+    computed: {
+      isShow () {
+        if (this.id == this.$store.state.turn) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
 }
 </script>
 

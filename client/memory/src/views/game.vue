@@ -1,13 +1,14 @@
 <template>
     <div>
+        <!-- <div class="d-flex justify-content-center h1">TEST</div><br> -->
         <!-- <div class="d-flex justify-content-center">
             <audio class="audio" controls autoplay>
                 <source src="../assets/peritune-tavern.mp3" type="audio/mp3">
             </audio>
         </div> -->
         <div class="d-flex position-absolute w-100 justify-content-between">
-            <Scoreboard :player="player1"/>
-            <Scoreboard :player="player2"/>
+            <Scoreboard :player="player1" :id="1"/>
+            <Scoreboard :player="player2" :id="2"/>
         </div>
         <!-- <Sidebar :player1="player1" :player2="player2"/> -->
         <div class="memory-game" >
@@ -87,7 +88,10 @@ export default {
                }
            }
 
-           socket.emit('sendElement', {
+           this.sendDataIO()
+       },
+       sendDataIO() {
+            socket.emit('sendElement', {
                el1: this.element1,
                el2: this.element2,
                pl1: this.$store.state.player1,
@@ -96,6 +100,7 @@ export default {
        }
     },
     created() {
+        this.sendDataIO()
     },
     mounted () {
         socket.on('s_flipCard', payload => {
@@ -113,6 +118,9 @@ export default {
             this.element2 = payload.el2
             this.$store.commit('SET_PLAYER_1', payload.pl1)
             this.$store.commit('SET_PLAYER_2', payload.pl2)
+
+            this.$store.dispatch('checkFinish')
+            console.log('TERIMA ELEMENT', this.element1, this.element2)
         })
     }
 }
