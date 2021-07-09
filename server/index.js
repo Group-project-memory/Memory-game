@@ -125,6 +125,14 @@ io.on('connect', (socket) => {
     socket.on('flipCard', payload => {
         socket.broadcast.emit("s_flipCard", payload);
     })
+
+    socket.on('changeTurn', payload => {
+        socket.broadcast.emit("s_changeTurn", payload);
+    })
+
+    socket.on('sendElement', payload => {
+        socket.broadcast.emit('s_sendElement', payload)
+    })
 })
 
 function getRandomCard() {

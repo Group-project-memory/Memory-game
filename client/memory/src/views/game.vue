@@ -68,16 +68,31 @@ export default {
                        this.element1.discovered = true;
                        this.element2.discovered = true;
                        
-                       this.$store.dispatch('addScore1')
+                       if (this.$store.state.turn == 1) {
+                           this.$store.dispatch('addScore1')
+                       } else {
+                           this.$store.dispatch('addScore2')
+                       }
                    } else {
+                       console.log("SALA")
                        this.element1.flip = false;
                        this.element2.flip = false;
+                    
+                       this.$store.commit('CHANGE_TURN')
+                       socket.emit('changeTurn', this.$store.state.turn)
                    }
                } else {
                    this.element1 = item,
                    this.element2 = null
                }
            }
+
+           socket.emit('sendElement', {
+               el1: this.element1,
+               el2: this.element2,
+               pl1: this.$store.state.player1,
+               pl2: this.$store.state.player2,
+           })
        }
     },
     created() {
@@ -87,6 +102,17 @@ export default {
             console.log('CLIENT RECEIVE', payload)
             this.$store.commit('SET_CARD', null)
             this.$store.commit('SET_CARD', payload)
+        })
+
+        socket.on('s_changeTurn', payload => {
+            this.$store.commit('SET_TURN', payload)
+        })
+
+        socket.on('s_sendElement', payload => {
+            this.element1 = payload.el1
+            this.element2 = payload.el2
+            this.$store.commit('SET_PLAYER_1', payload.pl1)
+            this.$store.commit('SET_PLAYER_2', payload.pl2)
         })
     }
 }
