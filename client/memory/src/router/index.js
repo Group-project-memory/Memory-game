@@ -19,15 +19,15 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/game.vue'),
   },
-  {
-    path: '/',
-    name: 'Login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('../views/login.vue'),
-    meta:{isLoginPage: true}
-  }
+  // {
+  //   path: '/',
+  //   name: 'Login',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import('../views/Login.vue'),
+  //   meta:{isLoginPage: true}
+  // }
 ]
 
 const router = new VueRouter({
