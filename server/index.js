@@ -4,6 +4,7 @@ const app = express();
 const http = require('http').createServer(app)
 const PORT = 3000
 let playerCount = 0;
+let p1name = "";
 const lodash = require('lodash');
 
 let cardList = [
@@ -107,12 +108,13 @@ io.on('connect', (socket) => {
 
     io.emit('idSocket', socket.id)
 
-    socket.on('join_game', payload => {
+    socket.on('join_game', nama => {
         if (playerCount > 2) {
             io.emit('respon_join', 'Player Full')
         } else {
             playerCount++
-            io.emit('respon_join', playerCount)
+            if (!p1name) {p1name = nama}
+            io.emit('respon_join', playerCount, nama, p1name)
         }
     })
 

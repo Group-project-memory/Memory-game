@@ -26,6 +26,12 @@ export default new Vuex.Store({
     SET_ACTIVE_PLAYER(state, payload){
       state.activeAs = payload
     },
+    SET_P1_NAME (state, payload) {
+      state.player1.nama = payload
+    },
+    SET_P2_NAME (state, payload) {
+      state.player2.nama = payload
+    },
     SET_CARD(state, payload) {
       console.log('CARD LIST', payload)
       state.cardList = payload;
