@@ -14,8 +14,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  height: 100%;
-  background-image: url("https://cdna.artstation.com/p/assets/images/images/006/052/170/large/woo-chul-lee-11.jpg?1495674479")
 }
 
 #nav {
@@ -30,4 +28,6 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+ @font-face { font-family: BlackRose; src: url('./assets/BlackRose-2Onld.ttf'); } 
 </style>
