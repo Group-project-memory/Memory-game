@@ -7,12 +7,7 @@
 
 <script>
 export default {
-    // data() {
-    //     return {
-    //         flip: 0
-    //     }
-    // },
-    props: ["card", "flip"],
+    props: ["card", 'flip'],
     methods: {
         flipCard(){
           if (this.flip == 0) {
