@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    player1: { nama: 'player 1', score: 0, socketId: '' },
+    activeAs: '',
+    player1: { nama: 'player 1', score: 2, socketId: '' },
     player2: { nama: 'player 2', score: 0 , socketId: '' },
     cardList: [
       {
@@ -85,6 +86,7 @@ export default new Vuex.Store({
   },
   mutations: {
     ADD_PLAYER_1_SCORE (state, payload) {
+      console.log("MUTATION", payload)
       state.player1.score = payload
     },
     ADD_PLAYER_2_SCORE (state, payload) {
@@ -93,15 +95,20 @@ export default new Vuex.Store({
     RESET_STATE(state){
       state.player1 = { nama: '', score: 0 }
       state.player2 = { nama: '', score: 0 }
+    },
+    SET_ACTIVE_PLAYER(state, payload){
+      state.activeAs = payload
     }
   },
   actions: {
     addScore1(context){
-      context.commit('ADD_PLAYER_1_SCORE', this.state.player1.score++)
+      let score = this.state.player1.score + 1
+      context.commit('ADD_PLAYER_1_SCORE', score)
       this.dispatch('checkFinish')
     },
     addScore2(context){  
-      context.commit('ADD_PLAYER_2_SCORE', this.state.player2.score++)
+      let score = this.state.player2.score + 1
+      context.commit('ADD_PLAYER_2_SCORE', score)
       this.dispatch('checkFinish')
     },
     checkFinish(){
