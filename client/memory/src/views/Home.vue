@@ -40,9 +40,18 @@ export default {
       } else {
         if (payload == 1) {
           console.log('Waiting Another Player')
+          this.$store.commit('SET_ACTIVE_PLAYER', 'player1')
+
+          console.log('Your Are Player 1')
           this.isWaiting = true;
         } else {
           console.log('Game Started')
+
+          if (this.$store.state.activeAs === '') {
+            this.$store.commit('SET_ACTIVE_PLAYER', 'player2')
+
+            console.log('Your Are Player 2')
+          }
           this.$router.push('/game')
         }
       }
