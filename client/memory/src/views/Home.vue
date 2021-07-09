@@ -51,10 +51,16 @@ export default {
             this.$store.commit('SET_ACTIVE_PLAYER', 'player2')
 
             console.log('Your Are Player 2')
+
+            socket.emit('getCard')
           }
           this.$router.push('/game')
         }
       }
+    })
+
+    socket.on('s_getCard', payload => {
+      this.$store.commit('SET_CARD', payload)
     })
   }
 
