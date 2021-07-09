@@ -6,14 +6,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    turn: 1,
     activeAs: '',
     player1: { nama: 'player 1', score: 0, socketId: '' },
     player2: { nama: 'player 2', score: 0 , socketId: '' },
     cardList: []
   },
   mutations: {
+    SET_PLAYER_1 (state, payload) {
+      state.player1 = payload
+    },
+    SET_PLAYER_2 (state, payload) {
+      state.player2 = payload
+    },
     ADD_PLAYER_1_SCORE (state, payload) {
-      console.log("MUTATION", payload)
       state.player1.score = payload
     },
     ADD_PLAYER_2_SCORE (state, payload) {
@@ -27,8 +33,17 @@ export default new Vuex.Store({
       state.activeAs = payload
     },
     SET_CARD(state, payload) {
-      console.log('CARD LIST', payload)
       state.cardList = payload;
+    },
+    SET_TURN(state, payload) {
+      state.turn = payload;
+    },
+    CHANGE_TURN(state) {
+      if (state.turn == 1) {
+        state.turn = 2
+      } else {
+        state.turn = 1
+      }
     }
   },
   actions: {

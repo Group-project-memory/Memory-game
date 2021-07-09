@@ -10,11 +10,12 @@ export default {
     props: ["card", 'flip'],
     methods: {
         flipCard(){
-          if (this.flip == 0) {
-            this.flip = 1
-
-            this.$emit("flipCard", this.card)
-          }
+          // if (this.$store.state.turn === 1 && this.$store.state.activeAs == 'player1' || this.$store.state.turn === 2 && this.$store.state.activeAs == 'player2') {
+            if (this.flip == 0) {
+              this.flip = 1
+              this.$emit("flipCard", this.card)
+            }
+          // }
         }
     },
     computed: {
