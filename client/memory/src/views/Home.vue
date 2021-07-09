@@ -1,18 +1,53 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button v-if="!isWaiting" @click="startGame">START GAME</button>
+    <h1 v-if="isWaiting">Waiting Another Player</h1>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import {io} from 'socket.io-client'
+const socket = io('http://localhost:3000')
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  components: { },
+  data() {
+      return {
+          idSocket: '',
+          isWaiting: false
+        }
+  },
+  methods: {
+    startGame () {
+      socket.emit('join_game', 'JOIN');
+
+    }
+  },
+  mounted () {
+    console.log('mounted')
+    socket.on('connect', () => {
+      console.log('disini')
+    })
+
+    socket.on('idSocket', (payload) => {
+      this.idSocket = payload
+    })
+
+    socket.on('respon_join', payload => {
+      if(payload === 'Player Full') {
+        console.log('Silahkan Coba Lagi Setelah Beberapa Saat')
+      } else {
+        if (payload == 1) {
+          console.log('Waiting Another Player')
+          this.isWaiting = true;
+        } else {
+          console.log('Game Started')
+          this.$router.push('/game')
+        }
+      }
+    })
   }
+
 }
 </script>
