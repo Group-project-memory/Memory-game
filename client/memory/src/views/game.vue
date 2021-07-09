@@ -1,7 +1,16 @@
 <template>
     <div>
-        <Sidebar :player1="player1" :player2="player2"/>
-        <div class="memory-game">
+        <div class="d-flex justify-content-center">
+            <audio class="audio" controls autoplay>
+                <source src="../assets/peritune-tavern.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <div class="d-flex position-absolute w-100 justify-content-between">
+            <Scoreboard :player="player1"/>
+            <Scoreboard :player="player2"/>
+        </div>
+        <!-- <Sidebar :player1="player1" :player2="player2"/> -->
+        <div class="memory-game" >
             <Card v-for="card in deck" 
             :key="card.id" 
             :card="card" 
@@ -13,11 +22,12 @@
 
 <script>
 import Card from '../components/Card.vue'
-import Sidebar from '../components/Sidebar.vue'
+// import Sidebar from '../components/Sidebar.vue'
+import Scoreboard from '../components/Scoreboard.vue'
 import lodash from 'lodash'
 export default {
     components: {
-        Card, Sidebar
+        Card, Scoreboard
     },
     data() {
         return {
