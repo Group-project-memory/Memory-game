@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Swal from 'sweetalert2'
+import {io} from 'socket.io-client'
+import router from '../router'
+const socket = io('http://localhost:3000')
 
 Vue.use(Vuex)
 
@@ -88,7 +91,8 @@ export default new Vuex.Store({
       }
     },
     resetState() {
-
+      socket.emit('resetGame')
+      router.push('/')
     }
   },
   modules: {

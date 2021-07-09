@@ -134,6 +134,14 @@ io.on('connect', (socket) => {
     socket.on('sendElement', payload => {
         socket.broadcast.emit('s_sendElement', payload)
     })
+
+    socket.on('player2', payload => {
+        socket.broadcast.emit('s_player2', payload)
+    })
+
+    socket.on('resetGame', () => {
+        playerCount = 0;
+    })
 })
 
 function getRandomCard() {
