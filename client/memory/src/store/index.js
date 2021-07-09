@@ -7,8 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     activeAs: '',
-    player1: { nama: 'player 1', score: 2, socketId: '' },
-    player2: { nama: 'player 2', score: 0 , socketId: '' },
+    player1: { nama: '', score: 0, socketId: '' },
+    player2: { nama: '', score: 0 , socketId: '' },
     cardList: [
       {
         num: 1,
@@ -98,7 +98,13 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_PLAYER(state, payload){
       state.activeAs = payload
-    }
+    },
+    SET_P1_NAME (state, payload) {
+      state.player1.nama = payload
+    },
+    SET_P2_NAME (state, payload) {
+      state.player2.nama = payload
+    },
   },
   actions: {
     addScore1(context){

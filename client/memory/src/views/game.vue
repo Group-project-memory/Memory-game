@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="d-flex justify-content-center">
+        <!-- <div class="d-flex justify-content-center">
             <audio class="audio" controls autoplay>
                 <source src="../assets/peritune-tavern.mp3" type="audio/mp3">
             </audio>
-        </div>
+        </div> -->
         <div class="d-flex position-absolute w-100 justify-content-between">
             <Scoreboard :player="player1"/>
             <Scoreboard :player="player2"/>
